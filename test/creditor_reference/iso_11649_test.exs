@@ -6,7 +6,6 @@ defmodule CreditorReference.ISO11649Test do
     assert CreditorReference.ISO11649.valid?("RF471234567890") == true
     assert CreditorReference.ISO11649.valid?("RF18 5390 0754 7034") == true
     assert CreditorReference.ISO11649.valid?("RF18000000000539007547034") == true
-    assert CreditorReference.ISO11649.valid?("RF18000000000539007547034") == true
     assert CreditorReference.ISO11649.valid?("RF712348231") == true
     assert CreditorReference.ISO11649.valid?("RF71 2348 231") == true
   end
