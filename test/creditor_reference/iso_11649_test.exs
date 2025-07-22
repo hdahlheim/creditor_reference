@@ -6,6 +6,7 @@ defmodule CreditorReference.ISO11649Test do
     assert CreditorReference.ISO11649.valid?("RF471234567890") == true
     assert CreditorReference.ISO11649.valid?("RF18 5390 0754 7034") == true
     assert CreditorReference.ISO11649.valid?("RF18000000000539007547034") == true
+    assert CreditorReference.ISO11649.valid?("RF18000000000539007547034") == true
     assert CreditorReference.ISO11649.valid?("RF712348231") == true
     assert CreditorReference.ISO11649.valid?("RF71 2348 231") == true
   end
@@ -20,5 +21,11 @@ defmodule CreditorReference.ISO11649Test do
     {:ok, cr} = CreditorReference.ISO11649.generate("hallo")
 
     assert CreditorReference.ISO11649.valid?(cr) == true
+  end
+
+  test "print format" do
+    formatted = CreditorReference.ISO11649.format_print("RF18000000000539007547034")
+
+    assert "RF18 0000 0000 0539 0075 4703 4" == formatted
   end
 end
