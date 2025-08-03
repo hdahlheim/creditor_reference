@@ -7,14 +7,6 @@ defmodule CreditorReference.SwissQRR do
   @behaviour CreditorReference.Validator
   @behaviour CreditorReference.Generator
 
-  @impl CreditorReference.Validator
-  def valid?(input) do
-    case validate(input) do
-      {:ok, _} -> true
-      _ -> false
-    end
-  end
-
   @doc """
   Validates a given reference number against the check digit at the end of the
   string. The input can be in print format (whitespace spepareted) or digital

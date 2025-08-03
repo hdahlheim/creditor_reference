@@ -3,10 +3,17 @@ defmodule CreditorReference do
   Documentation for `CreditorReference`.
   """
 
-  @type_mapping %{
+  @cr_alias %{
     :iso_11649 => CreditorReference.ISO11649,
     :swiss_qrr => CreditorReference.SwissQRR
   }
+
+  def valid?(type, input) do
+    case validate(type, input) do
+      {:ok, _} -> true
+      {:error, _} -> false
+    end
+  end
 
   @doc """
   Validate a creditor reference.
@@ -17,8 +24,8 @@ defmodule CreditorReference do
       {:ok, "RF471234567890"}
 
   """
-  def validate(type \\ :iso_11649, input) when is_atom(type) do
-    module = Map.get(@type_mapping, type, type)
+  def validate(type \\ get_default_type(), input) when is_atom(type) do
+    module = Map.get(@cr_alias, type, type)
     apply(module, :validate, [input])
   end
 
@@ -32,7 +39,11 @@ defmodule CreditorReference do
 
   """
   def generate(type \\ :iso_11649, input) when is_atom(type) do
-    module = Map.get(@type_mapping, type, type)
+    module = Map.get(@cr_alias, type, type)
     apply(module, :generate, [input])
+  end
+
+  defp get_default_type do
+    :iso_11649
   end
 end

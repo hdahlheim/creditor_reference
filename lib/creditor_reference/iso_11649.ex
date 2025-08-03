@@ -6,14 +6,6 @@ defmodule CreditorReference.ISO11649 do
   @generator_postfix "RF00"
 
   @impl CreditorReference.Validator
-  def valid?(ref) do
-    case validate(ref) do
-      {:ok, _} -> true
-      {:error, _} -> false
-    end
-  end
-
-  @impl CreditorReference.Validator
   def validate(ref, opts \\ []) do
     normalize = Keyword.get(opts, :normalize, true)
 
