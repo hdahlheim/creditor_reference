@@ -1,6 +1,7 @@
 # CreditorReference
 
-**TODO: Add description**
+CreditorReference is a elixir package for generateing and validating, you guessed it,
+creditor references used in IBAN wire transfers.
 
 ## Installation
 
