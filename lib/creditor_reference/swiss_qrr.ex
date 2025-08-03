@@ -1,16 +1,16 @@
 defmodule CreditorReference.SwissQRR do
   @moduledoc """
-  Module for generating and validating Swiss ESR-Numbers used in the legacy
-  Orange Payment Slip and the QR-Bill QR-Reference in combination with QR-IBAN.
+  Module for generating and validating Swiss reference numbers used in the legacy
+  Orange payment slips (ESR) and the QR-Bill QR-Reference (QRR).
   """
 
   @behaviour CreditorReference.Validator
   @behaviour CreditorReference.Generator
 
   @doc """
-  Validates a given reference number against the check digit at the end of the
-  string. The input can be in print format (whitespace spepareted) or digital
-  format (continues number string).
+  Validates a given reference number string against the QRR format and its
+  checksum validity using the modulo 10 recursive method. The input can be in
+  print format (whitespace separated) or digital format (continuous number string).
 
     iex> {:ok, "21 00000 00003 13947 14300 09017"} =
     iex> CreditorReference.SwissQRR.validate("21 00000 00003 13947 14300 09017")
@@ -53,17 +53,17 @@ defmodule CreditorReference.SwissQRR do
   }
 
   @doc """
-  Caluteates the checksum number using the modulo 10 recursive method.
+  Calculates the checksum number using the modulo 10 recursive method.
 
-  For valid QR-References e.g Numbers with the length 27 the result is expected
-  to be 0. If any other number is returned for a 27 character long input than
-  the result is a invalid QR-Reference.
+  For valid QR-References, e.g., numbers with a length of 27, the result is
+  expected to be 0. If any other number is returned for a 27-character input,
+  then the result indicates an invalid QR-Reference.
 
-  For any input with a length of less then 27 this function can be used to
-  calutate the checksum digit. If the input concatiated with the result `input <>
-  checksum_digit` are less then 27 characters long the concatenated result needs
-  to be left padded with `0` until it reaches the length of 27
-  charectarts to be considered a valid QR-Reference.
+  For any input with a length of less than 27, this function can be used to
+  calculate the checksum digit. If the input concatenated with the result
+  `input <> checksum_digit` is less than 27 characters long, the concatenated
+  result needs to be left-padded with '0' until it reaches the length of 27
+  characters to be considered a valid QR-Reference.
 
   ## Examples
 
