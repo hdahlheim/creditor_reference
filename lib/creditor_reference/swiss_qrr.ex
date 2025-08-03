@@ -45,7 +45,8 @@ defmodule CreditorReference.SwissQRR do
   end
 
   @start_carry 0
-  # Modulo 10 recursive Check digit matrix
+  # Modulo 10 recursive check digit matrix
+  # see Annex B of https://www.six-group.com/dam/download/banking-services/standardization/qr-bill/ig-qr-bill-v2.3-en.pdf
   @lookup_table %{
     0 => 0,
     1 => 9,
