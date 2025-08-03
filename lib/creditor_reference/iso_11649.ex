@@ -1,7 +1,11 @@
 defmodule CreditorReference.ISO11649 do
+  @behaviour CreditorReference.Validator
+  @behaviour CreditorReference.Generator
+
   @prefix "RF"
   @generator_postfix "RF00"
 
+  @impl CreditorReference.Validator
   def valid?(ref) do
     case validate(ref) do
       {:ok, _} -> true
@@ -9,6 +13,7 @@ defmodule CreditorReference.ISO11649 do
     end
   end
 
+  @impl CreditorReference.Validator
   def validate(ref, opts \\ []) do
     normalize = Keyword.get(opts, :normalize, true)
 
@@ -25,6 +30,7 @@ defmodule CreditorReference.ISO11649 do
     end
   end
 
+  @impl CreditorReference.Generator
   def generate(input, opts \\ []) do
     with :ok <- validate_length(input, 21) do
       checksum =
