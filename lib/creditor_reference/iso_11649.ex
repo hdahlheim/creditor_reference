@@ -1,4 +1,9 @@
 defmodule CreditorReference.ISO11649 do
+  @moduledoc """
+  Module for generating and validating ISO11649 reference numbers used in
+  international IBAN payments.
+  """
+
   @behaviour CreditorReference.Validator
   @behaviour CreditorReference.Generator
 

@@ -85,7 +85,7 @@ defmodule CreditorReference.SwissQRR do
 
   defp is_valid_esr_format(str) do
     cond do
-      str == "000000000000000000000000000" -> {:error, :all_zero_not_allowed}
+      str == "000000000000000000000000000" -> {:error, :invalid_input}
       String.length(str) != 27 -> {:error, :invalid_length}
       :otherwise -> :ok
     end
@@ -94,8 +94,8 @@ defmodule CreditorReference.SwissQRR do
   defp validate_input(str) do
     case Integer.parse(str) do
       :error -> {:error, :invalid_input}
-      {0, ""} -> {:error, :zero_input_not_allowed}
-      {_, str} when str != "" -> {:error, :only_numbers_allowed}
+      {0, ""} -> {:error, :invalid_input}
+      {_, str} when str != "" -> {:error, :invalid_input}
       {_i, ""} -> :ok
     end
   end
