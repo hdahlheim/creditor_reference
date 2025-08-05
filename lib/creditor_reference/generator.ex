@@ -1,4 +1,8 @@
 defmodule CreditorReference.Generator do
-  @callback generate(input :: binary(), opts :: keyword()) ::
-              {:ok, binary} | {:error, term()}
+  @moduledoc """
+  Generator behavior
+  """
+
+  @callback generate(input :: String.t(), opts :: keyword()) ::
+              {:ok, String.t()} | {:error, term()}
 end

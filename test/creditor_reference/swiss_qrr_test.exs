@@ -26,7 +26,7 @@ defmodule CreditorReference.SwissQRRTest do
 
   test "validate errors on all zero reference" do
     assert CreditorReference.SwissQRR.validate("00 00000 00000 00000 00000 00000") ==
-             {:error, :all_zero_not_allowed}
+             {:error, :invalid_input}
   end
 
   test "generates a valid reference" do

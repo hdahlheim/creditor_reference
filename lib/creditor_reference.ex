@@ -1,6 +1,8 @@
 defmodule CreditorReference do
   @moduledoc """
-  Documentation for `CreditorReference`.
+  Creditor References are strings used as part of wire transfers to match
+  incoming payments to invoices or orders. `CreditorReference` allows you to
+  generate and validate common creditor reference types in Elixir.
   """
 
   @cr_alias %{
@@ -26,7 +28,7 @@ defmodule CreditorReference do
   """
   def validate(type \\ get_default_type(), input) when is_atom(type) do
     module = Map.get(@cr_alias, type, type)
-    apply(module, :validate, [input])
+    module.validate(input)
   end
 
   @doc """
@@ -40,7 +42,7 @@ defmodule CreditorReference do
   """
   def generate(type \\ :iso_11649, input) when is_atom(type) do
     module = Map.get(@cr_alias, type, type)
-    apply(module, :generate, [input])
+    module.generate(input)
   end
 
   defp get_default_type do

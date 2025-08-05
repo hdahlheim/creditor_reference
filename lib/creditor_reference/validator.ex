@@ -1,4 +1,8 @@
 defmodule CreditorReference.Validator do
-  @callback validate(input :: binary(), opts :: keyword()) ::
-              {:ok, binary()} | {:error, term()}
+  @moduledoc """
+  Validator behavior
+  """
+
+  @callback validate(input :: String.t(), opts :: keyword()) ::
+              {:ok, String.t()} | {:error, term()}
 end
