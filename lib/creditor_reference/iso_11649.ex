@@ -10,6 +10,13 @@ defmodule CreditorReference.ISO11649 do
   @prefix "RF"
   @generator_postfix "RF00"
 
+  @doc """
+  Validates that he given string conforms to the ISO11649 specification.
+
+  ## Example
+    iex> CreditorReference.ISO11649.validate("RF18 5390 0754 7034")
+    {:ok, "RF18539007547034"}
+  """
   @impl CreditorReference.Validator
   def validate(ref, opts \\ []) do
     normalize = Keyword.get(opts, :normalize, true)
@@ -27,9 +34,18 @@ defmodule CreditorReference.ISO11649 do
     end
   end
 
+  @doc """
+  Generates a new ISO11649 reference based on the given input.
+  Only alpha numeric characters are allowed as input, whitespace will be ignored.
+
+  ## Example
+    iex> CreditorReference.ISO11649.generate("5390 0754 7034")
+    {:ok, "RF18539007547034"}
+  """
   @impl CreditorReference.Generator
   def generate(input, opts \\ []) do
-    with :ok <- validate_length(input, 21) do
+    with input <- String.replace(input, " ", ""),
+         :ok <- validate_length(input, 21) do
       checksum =
         (input <> @generator_postfix)
         |> generate_checksum()

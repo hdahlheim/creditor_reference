@@ -12,8 +12,8 @@ defmodule CreditorReference.SwissQRR do
   checksum validity using the modulo 10 recursive method. The input can be in
   print format (whitespace separated) or digital format (continuous number string).
 
-    iex> {:ok, "21 00000 00003 13947 14300 09017"} =
     iex> CreditorReference.SwissQRR.validate("21 00000 00003 13947 14300 09017")
+    {:ok, "21 00000 00003 13947 14300 09017"}
   """
   @impl CreditorReference.Validator
   def validate(str, _opts \\ []) when is_binary(str) do
@@ -67,9 +67,12 @@ defmodule CreditorReference.SwissQRR do
 
   ## Examples
 
-    iex> 0 = CreditorReference.SwissQRR.calculate_modulo10_recursive("210000000003139471430009017")
-    iex> 7 = CreditorReference.SwissQRR.calculate_modulo10_recursive("21000000000313947143000901")
-    iex> 0 = CreditorReference.SwissQRR.calculate_modulo10_recursive("000000000003139471430009018")
+    iex> CreditorReference.SwissQRR.calculate_modulo10_recursive("210000000003139471430009017")
+    0
+    iex> CreditorReference.SwissQRR.calculate_modulo10_recursive("21000000000313947143000901")
+    7
+    iex> CreditorReference.SwissQRR.calculate_modulo10_recursive("000000000003139471430009018")
+    0
   """
   def calculate_modulo10_recursive(str) do
     str
